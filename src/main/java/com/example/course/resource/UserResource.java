@@ -1,6 +1,7 @@
 package com.example.course.resource;
 
 import com.example.course.dto.UserDTO;
+import com.example.course.entities.Post;
 import com.example.course.entities.User;
 import com.example.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class UserResource {
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
+    @RequestMapping(value = "/{id}/posts",method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
 
+    }
 
 }
