@@ -9,6 +9,7 @@ import com.example.course.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public class PostService {
         return post.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado"));
     }
     public List<Post> findByTitle(String text) {
-        return rep.findByTitleContaining(text);
+        return rep.searchTiTle(text);
+    }
+
+    public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return rep.fullSearch(text, minDate, maxDate);
     }
 }
